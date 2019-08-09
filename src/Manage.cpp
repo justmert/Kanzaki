@@ -17,20 +17,6 @@ std::string MakeInput()
     return Trim(input);
 }
 
-int returnNum(const std::string s)
-{
-    int num;
-    try
-    {
-        num = std::stoi(s);
-    }
-    catch (const std::exception &error)
-    {
-        std::cout << "Given argument is not a number" << std::endl;
-    }
-    return num;
-}
-
 std::pair<std::string, std::string> Manage::ParseInput(std::string input)
 {
     auto it = std::find(input.begin(), input.end(), ' ');
@@ -157,7 +143,10 @@ bool Manage::SelectAnime(Anime item)
             if (input == "exit")
                 return true;
             else
+            {
+                ep.clear();
                 return false;
+            }
         }
         else if (input == "-e" || input == "episodes")
         {

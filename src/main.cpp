@@ -4,6 +4,9 @@
 
 int main()
 {
+    std::cout << "This program designed for linux\nIn order to use you must install vlc an wget. Thanks";
+    std::string a;
+    getline(std::cin,a);
     system("clear");
     std::cout << "Fetching Anime Names"<< std::endl;
     FetchAndParse start;
@@ -11,6 +14,7 @@ int main()
     std::cout << "\nAnimes" << std::endl;
     start.SplitLinkAndName(start.ParseHtml(html));
 
-    Manage::ManageProgram();
+    Manage program;
+    program.ManageProgram();
     return 0;
 }

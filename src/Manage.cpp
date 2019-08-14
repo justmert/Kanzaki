@@ -7,8 +7,8 @@
 #define v FetchAndParse::vector
 #define ep FetchEpisodes::VectorEpisode
 
-
-
+std::string Manage::path;
+std::string Manage::hname;
 std::string MakeInput()
 {
     std::string input;
@@ -96,7 +96,7 @@ void Manage::ManageProgram()
                 auto it = std::find_if(v.begin(), v.end(), [&](Anime p) { return p.number == num; });
                 if (it != v.end())
                 {
-                    bool do_exit = SelectAnime(v[num-1]);
+                    bool do_exit = SelectAnime(v[num - 1]);
                     if (do_exit)
                         return;
                     else
@@ -132,7 +132,7 @@ void Manage::ListAllAnimes()
 bool Manage::SelectAnime(Anime item)
 {
     std::cout << "Fetching " << item.name << " episodes\n";
-    std::string episodelink = FetchEpisodes::FetchAnimeEp(item.number-1);
+    std::string episodelink = FetchEpisodes::FetchAnimeEp(item.number - 1);
 
     while (true)
     {
@@ -150,7 +150,7 @@ bool Manage::SelectAnime(Anime item)
         }
         else if (input == "-e" || input == "episodes")
         {
-            ListAllEpisodes(item.number-1);
+            ListAllEpisodes(item.number - 1);
         }
         else if (input == "-h" || input == "help")
         {
@@ -160,7 +160,7 @@ bool Manage::SelectAnime(Anime item)
         {
             std::pair<std::string, std::string> mypair = ParseInput(input);
             std::string mf = mypair.first;
-            if (mf == "-p" || mf == "play" || mf == "-d" || input == "download")
+            if (mf == "-p" || mf == "play" || mf == "-d" || mf == "download")
             {
                 int num;
                 try
@@ -173,16 +173,16 @@ bool Manage::SelectAnime(Anime item)
                     continue;
                 }
                 auto it = std::find_if(ep.begin(), ep.end(), [&](Anime p) { return p.number == num; });
-                if (it != ep.end())
+                if (num == 0 || it != ep.end())
                 {
-                    std::string videoLink ="https://storage.kanzaki.ru/ANIME___/"+ item.link + ep[num-1].link;
+                    std::string videoLink = "https://storage.kanzaki.ru/ANIME___/" + item.link + ep[num - 1].link;
                     if (mypair.first == "-p" || mypair.first == "play")
                     {
                         FetchEpisodes::PlayAnime(videoLink);
                     }
-                    else if (mypair.first == "-d" || mypair.first == "download")
+                    else
                     {
-                        FetchEpisodes::DownloadAnime(videoLink);
+                        FetchEpisodes::DownloadAnime(videoLink,item.name,ep[num-1].name);
                     }
                 }
                 else

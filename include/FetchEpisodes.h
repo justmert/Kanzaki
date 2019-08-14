@@ -8,8 +8,9 @@ class FetchEpisodes
     public:
     static std::vector<Anime> VectorEpisode;
     static std::string FetchAnimeEp(int);
-    static void DownloadAnime(std::string);
+    static void DownloadAnime(std::string,std::string &, std::string &);
     static void PlayAnime(std::string);
+    static std::string replaceSpaces(std::string ); 
 };
 
 static std::string Trim(std::string str)

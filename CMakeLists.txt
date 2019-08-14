@@ -8,4 +8,4 @@ file(GLOB SOURCES "src/*.cpp")
 
 add_executable(code ${SOURCES} )
 
-target_link_libraries(code PRIVATE -lcurl)
+target_link_libraries(code PRIVATE -lcurl -lstdc++fs)
